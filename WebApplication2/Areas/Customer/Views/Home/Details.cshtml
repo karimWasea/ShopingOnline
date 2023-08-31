@@ -1,0 +1,239 @@
+﻿@model ShoppingCart
+
+
+<form method="post">
+    <input hidden asp-for="ProductId" />
+    <div class="card">
+
+        <div class="card-header bg-secondary bg-gradient ml-0 py-1 ">
+
+
+            <div class=" text-center">
+                <h2 class="text-white py-0"> @Model.product.Title</h2>
+                <p class="text-white py-0">By : @Model.product.Author</p>
+            </div>
+
+        </div>
+        <div class="card-body">
+
+            <div class="block">
+                <a asp-action="Index" class="shadow btn custom-btn ">Back</a>
+            </div>
+            <div class="container my-5">
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="carousel">
+                                @if (Model.product.ProductImages != null && Model.product.ProductImages.Count() > 0)
+                                {
+
+                                  
+                                    @foreach (var item in Model.product.ProductImages)
+                                    {
+                                       
+                                    <div class="carousel-item">
+                                        <img src="@item.ImageUrl" alt="Dog" title="Dog">
+                                        <h3>
+                                            Someone Famous 1
+                                        </h3>
+                                    </div>
+                                    }
+
+
+
+                                }
+                                else
+                                {
+                                    <img src="https://placehold.co/500x600/png" class="card-img-top rounded" />
+                                }
+                            
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+                    <div class="col-md-7">
+                        <div class="main-description px-2">
+                            <div class="category text-bold">
+                            </div>
+                            <div class="product-title text-bold my-3">
+                                @Model.product.categry.Name
+                            </div>
+
+
+                            <div class="price-area my-4">
+                                <p class="old-price mb-1">
+                                    <del>@Model.product.ListPrice</del>
+                                    @*<span class="old-price-discount text-danger">(20% off)</span></p>*@
+                                <p class="new-price text-bold mb-1">@Model.product.Price</p>
+                                <p class="text-secondary mb-1">(Additional tax may apply on checkout)</p>
+
+                            </div>
+
+
+                            <div class="buttons d-flex my-5">
+
+                                <div class="block">
+                                    <button class="shadow btn custom-btn">Add to cart</button>
+                                </div>
+
+                                <div class="block quantity">
+                                    <input type="number" asp-for="Count" class="form-control">
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+                        <div class="product-details my-4">
+                            <p class="details-title text-color mb-1">Product Details</p>
+                            <p class="description">@Html.Raw(Model.product.Description) </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+
+
+<style>
+    .text-bold {
+        font-weight: 800;
+    }
+
+    text-color {
+        color: #0093c4;
+    }
+
+    /* Main image - left */
+    .main-img img {
+        width: 75%;
+    }
+
+    /* Preview images */
+    .previews img {
+        width: 100%;
+        height: 140px;
+    }
+
+    .main-description .category {
+        text-transform: uppercase;
+        color: #0093c4;
+    }
+
+    .main-description .product-title {
+        font-size: 2.5rem;
+    }
+
+    .old-price-discount {
+        font-weight: 600;
+    }
+
+    .new-price {
+        font-size: 2rem;
+    }
+
+    .details-title {
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: #757575;
+    }
+
+    .buttons .block {
+        margin-right: 5px;
+    }
+
+    .quantity input {
+        border-radius: 0;
+        height: 40px;
+    }
+
+
+    .custom-btn {
+        text-transform: capitalize;
+        background-color: #0093c4;
+        color: white;
+        width: 150px;
+        height: 40px;
+        border-radius: 0;
+    }
+
+        .custom-btn:hover {
+            background-color: #0093c4 !important;
+            font-size: 18px;
+            color: white !important;
+        }
+
+    .similar-product img {
+        height: 400px;
+    }
+
+    .similar-product {
+        text-align: left;
+    }
+
+        .similar-product .title {
+            margin: 17px 0px 4px 0px;
+        }
+
+        .similar-product .price {
+            font-weight: bold;
+        }
+
+</style>
+ <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+        *:focus {
+            outline: 0;
+        }
+
+  
+   
+
+    .carousel {
+        height: 700px;
+        perspective: 600px;
+        transform: translateY(-100px);
+    }
+
+        .carousel .carousel-item {
+            cursor: grab;
+            width: 400px;
+        }
+
+            .carousel .carousel-item:active {
+                cursor: grabbing;
+            }
+
+            .carousel .carousel-item img {
+                width: 100%;
+            }
+
+            .carousel .carousel-item h3 {
+                background-color: #ffffff;
+                color: #000000;
+                font-size: 2em;
+                font-weight: bold;
+                margin: -5px 0 0;
+                padding: 10px 5px;
+                text-align: center;
+            }
+ </style>
+<script>
+    $(document).ready(function () {
+        $('.carousel').carousel();
+    });
+</script>

@@ -1,0 +1,56 @@
+﻿@model BulkyBook.Models.Categry
+
+<div class="modal-body">
+<form id="editForm" method="post" action="/Admin/Categries/Edit">
+    <!-- Form fields for editing the product -->
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="@Model.Name">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description">@Model.Description</textarea>
+    </div>
+    <br />  
+    <div class="row">
+        <div class="col-12 text-center">
+                <button class="btn btn-primary" type="submit">Update</button>
+
+        </div>
+    </div>
+</form>
+</div>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Handle form submission via AJAX
+            $('#editForm').submit(function (e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                // Submit the form via AJAX
+
+                $.ajax({
+                    url: '/Admin/Categries/Edit?Id='@Model.Id,
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        // Handle the response, e.g., display a success message
+                        alert('Product updated successfully!');
+                        $('#editModal').modal('hide');
+                        // Perform any other desired action
+                        // ...
+                    },
+                    error: function (error) {
+                        // Handle the error, e.g., display an error message
+                        alert('An error occurred while updating the product.');
+                    }
+                });
+            });
+        });
+    </script>
+}

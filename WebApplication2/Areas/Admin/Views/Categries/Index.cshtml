@@ -1,0 +1,143 @@
+﻿@model IEnumerable<BulkyBook.Models.Categry>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<partial name="_Notifications" />
+ 
+
+<div class="card">
+
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3 ">
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-0">Categries List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="Col-6 text-end mb-2">
+            <a asp-action="Create" class="btn btn-dark"><i class="bi bi-plus-circle"></i>Create New Categray</a>
+        </div>
+
+
+
+
+
+<table class="table table-bordered table-responsive table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                            <a class="editButton btn btn-dark " data-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit</a>
+                            @*<a asp-action="Edit" class="editButton" asp-route-id="@item.Id">Edit</a> |*@
+                            @*<a asp-action="Details" onClick='return DeleteTeam()' asp-route-id="@item.Id">Details</a> |*@
+                            <a asp-action="Delete" data-id="@item.Id" class="btn btn-danger "><i class="bi bi-trash-fill"></i>Delete</a>
+            </td>
+        </tr>
+                    <!-- Popup container -->
+                   
+}
+    </tbody>
+</table>
+    </div>
+    <div class="modal" id="editModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Category</h5>
+                    @*<button type="button" id="btnClose" onclick="close()" class="close" data-dismiss="modal" aria-label="Close">
+                         
+                        <span aria-hidden="true">&times;</span>*@
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="editPopup"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section scripts {
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Open the modal on edit button click
+                $('.editButton').click(function () {
+                    var productId = $(this).data('id');
+                    // Load the Edit action into the popup container
+                    $('#editPopup').load('/Admin/Categries/Edit/' + productId);
+                    $('#editModal').modal('show');
+                });
+            });
+
+        </script>
+@*        <script>
+            const myButton = document.getElementById('btnClose');
+             
+            myButton.onclick = function () {
+                document.getElementById('editModal').style.display = 'none';
+
+                console.log('Button clicked!');
+            };
+        </script>*@
+    }
+  @*  <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+
+*@
